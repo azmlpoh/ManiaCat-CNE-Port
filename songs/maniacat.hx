@@ -41,17 +41,23 @@ function update(elapsed:Float) {
 	for (sprite in sprites) sprite.visible = false;
 	sprites['base'].visible = true;
 
+	if (upPressed) sprites['up'].visible = true;
+	if (downPressed) sprites['down'].visible = true;
+	if (leftPressed) sprites['left'].visible = true;
+	if (rightPressed) sprites['right'].visible = true;
+
 	if (upPressed && rightPressed) {
 		sprites['upright'].visible = true;
-	} else if (leftPressed && downPressed) {
-		sprites['leftdown'].visible = true;
-	} else {
-		if (upPressed) sprites['up'].visible = true;
-		if (downPressed) sprites['down'].visible = true;
-		if (leftPressed) sprites['left'].visible = true;
-		if (rightPressed) sprites['right'].visible = true;
+		sprites['up'].visible = false;
+		sprites['right'].visible = false;
 	}
 
-	if (!upPressed && !rightPressed) sprites['base_right'].visible = true;
-	if (!leftPressed && !downPressed) sprites['base_left'].visible = true;
+	if (leftPressed && downPressed) {
+		sprites['leftdown'].visible = true;
+		sprites['left'].visible = false;
+		sprites['down'].visible = false;
+	}
+
+	sprites['base_left'].visible = (!leftPressed && !downPressed);
+	sprites['base_right'].visible = (!upPressed && !rightPressed);
 }
